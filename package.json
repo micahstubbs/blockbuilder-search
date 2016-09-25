@@ -4,6 +4,7 @@
   "description": "Blockbuilder search engine plugin.",
   "main": "index.js",
   "scripts": {
+    "copy": "cp public/bundle.js ~/workspace/blockbuilder/node_modules/blockbuilder-search/public/",
     "local": "webpack --color --progress --watch",
     "buildWatch": "webpack --color --progress --watch",
     "build": "webpack --color --progress",

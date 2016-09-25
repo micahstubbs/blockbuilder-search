@@ -75,6 +75,7 @@ function searchES(es, submittedQuery, callback) {
   var recent;
   var user = submittedQuery.user;
   var d3version = submittedQuery.d3version;
+  var filename = submittedQuery.filename;
   var api = submittedQuery.api || [];
   var d3modules = submittedQuery.d3modules || [];
   var dateRange = submittedQuery.dateRange;
@@ -89,12 +90,8 @@ function searchES(es, submittedQuery, callback) {
       ],
       "tie_breaker": 0.1
     }
-  } else {
-    recent = true;
-    queryTerm.match_all = {};
-  }
   // TODO: rethink this, we want potentially want to filter by these
-  /* else if(method === "api") {
+  } else if(method === "api") {
     // We assume the user knows what the possible API functions are
     // and we are doing an exact match
     queryTerm.match = {
@@ -106,8 +103,11 @@ function searchES(es, submittedQuery, callback) {
     queryTerm.wildcard = {
       "filenames": text
     }
-  }*/
-  if(user || d3version || api.length || d3modules.length || dateRange) {
+  } else {
+    recent = true;
+    queryTerm.match_all = {};
+  }
+  if(user || d3version || filename.length || api.length || d3modules.length || dateRange) {
     var textQuery = JSON.parse(JSON.stringify(queryTerm)); // {{0_0}}
     queryTerm = {}
     // https://www.elastic.co/guide/en/elasticsearch/guide/current/_most_important_queries_and_filters.html#_bool_filter
@@ -117,6 +117,9 @@ function searchES(es, submittedQuery, callback) {
     }
     if(d3version) {
       must.push({"term": {"d3version": d3version }})
+    }
+    if(filename) {
+      must.push({"term": {"filename": filename}})
     }
     if(api) {
       api.forEach(function(fn) {

@@ -57,6 +57,10 @@ const SearchBar = React.createClass({
       if(hash) hash += ";"
       hash += "d3version=" + mergedQuery.d3version;
     }
+    if(mergedQuery.filename.length) {
+      if(hash) hash += ";"
+      hash += "filename=" + mergedQuery.filename;
+    }
     if(mergedQuery.api.length) {
       if(hash) hash += ";"
       hash += "api=" + mergedQuery.api;
@@ -92,6 +96,16 @@ const SearchBar = React.createClass({
     var value = this.refs.d3version.value;
     if(value == "any version") value = "";
     var query = { ...this.props.query, d3version: value }
+    this.props.setQuery(query)
+    var that = this;
+    setTimeout(function() {
+      that.handleSearch()
+    })
+  },
+  handleFilenameChange () {
+    var value = this.refs.filename.value;
+    if(value == "any filename") value = "";
+    var query = { ...this.props.query, filename: value }
     this.props.setQuery(query)
     var that = this;
     setTimeout(function() {
@@ -297,6 +311,11 @@ const SearchBar = React.createClass({
           <option defaultValue="v4">v4</option>
           <option defaultValue="v3">v3</option>
           <option defaultValue="v2">v2</option>
+        </select>
+
+        <select ref="files" value={this.props.query.files} onChange={this.handleFilesChange} multiple="true">
+          <option defaultValue="thumbnail.png">thumbnail.png</option>
+          <option defaultValue="preview.png">preview.png</option>
         </select>
 
         <div id="selected-apis">

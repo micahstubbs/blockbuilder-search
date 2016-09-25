@@ -1,7 +1,17 @@
 import actions from './actions/actionNames.js'
 
 const initialState = {
-  query: { text: "", size: 100, sort: "created_at", sort_dir: "desc", user: "", api: [], d3modules: [], d3version:""},
+  query: { 
+    text: "",
+    size: 100,
+    sort: "created_at",
+    sort_dir: "desc",
+    user: "",
+    api: [],
+    d3modules: [],
+    d3version:"",
+    filename: []
+  },
   results: [],
   d3Apis: [],
   d3Modules: [],
