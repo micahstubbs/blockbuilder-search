@@ -10,7 +10,7 @@ const initialState = {
     api: [],
     d3modules: [],
     d3version:"",
-    filename: []
+    filenames: []
   },
   results: [],
   d3Apis: [],

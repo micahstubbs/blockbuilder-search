@@ -30,8 +30,8 @@ const App = React.createClass({
       if(object.d3version) {
         query.d3version = object.d3version;
       }
-      if(object.filename) {
-        query.filename = object.filename;
+      if(object.filenames) {
+        query.filenames = object.filenames;
       }
       if(object.api) {
         query.api = object.api.split(",")
