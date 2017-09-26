@@ -93,6 +93,14 @@ const SearchBar = React.createClass({
       this.handleSearch();
     }
   },
+  handleThumbnailChange() {
+    const checked = this.refs.thumbnail.checked;
+    var query = {
+      ...this.props.query,
+      filenames: ['thumbnail.png']
+    };
+    this.props.setQuery(query);
+  },
   handleUserChange() {
     var value = this.refs.user.value;
     var query = { ...this.props.query, user: value };
@@ -324,7 +332,7 @@ const SearchBar = React.createClass({
           className="text-search"
           type="text"
           onKeyDown={this.handleKeyDown}
-          onChange={this.handleChange}
+          onChange={this.hanleChange}
         />
         <a className="search-button" onClick={this.handleSearch}>
           Search
@@ -371,14 +379,16 @@ const SearchBar = React.createClass({
           <option defaultValue="v2">v2</option>
         </select>
 
-        <input
-          ref="user"
-          className="user-search"
-          type="text"
-          placeholder="username"
-          onKeyDown={this.handleUserKeyDown}
-          onChange={this.handleUserChange}
-        />
+        <div>
+          <input
+            ref="thumbnail"
+            id="thumbnail-checkbox"
+            className="thumbnail-checkbox"
+            type="checkbox"
+            onChange={this.handleThumbnailChange}
+          />
+          <label htmlFor="thumbnail-checkbox">with thumbnail image</label>
+        </div>
 
         <div id="selected-apis">{apiDivs}</div>
         <div id="selected-modules">{moduleDivs}</div>
