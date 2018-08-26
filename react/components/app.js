@@ -9,6 +9,8 @@ import Header from './header'
 import Results from './results'
 import SearchBar from './searchbar'
 
+import d3Modules from '../../metadata/d3-modules.csv'
+
 const App = React.createClass({
   componentDidMount() {
     const query = { ...this.props.query }
@@ -35,11 +37,18 @@ const App = React.createClass({
       if (object.d3modules) {
         query.d3modules = object.d3modules.split(',')
       }
+      console.log('this.props.d3Modules', this.props.d3Modules)
+      console.log('d3Modules from file', d3Modules)
     }
     this.props.actions.getSearch(query)
     this.props.actions.getScreenshotList()
   },
   render() {
+    const d3ModulesList = d3Modules
+      .map(d => ({
+        key: d[0]
+      }))
+      .slice(1, d3Modules.length)
     return (
       <div>
         <Header />
