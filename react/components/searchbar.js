@@ -117,8 +117,12 @@ const SearchBar = React.createClass({
     this.props.setQuery(query)
   },
   handleUserChange() {
-    const value = this.refs.user.value
-    const query = { ...this.props.query, user: value }
+    // lowercase all user names
+    // since this seems to be how we index them
+    // in elasticsearch
+    const value = `${this.refs.user.value}`.toLowerCase()
+    const rawValue = this.refs.user.value
+    const query = { ...this.props.query, user: value, userRaw: rawValue }
     this.props.setQuery(query)
   },
   handleVersionChange() {
@@ -242,8 +246,8 @@ const SearchBar = React.createClass({
       if (this.refs.search) {
         this.refs.search.value = this.props.query.text
       }
-      if (this.refs.user && this.props.query.user) {
-        this.refs.user.value = this.props.query.user
+      if (this.refs.user && this.props.query.userRaw) {
+        this.refs.user.value = this.props.query.userRaw
       }
     }
   },
@@ -308,6 +312,7 @@ const SearchBar = React.createClass({
     const moduleValue = this.state.moduleValue
     if (alld3Modules.length) {
       var top20 = []
+      console.log('alld3Modules', alld3Modules)
       alld3Modules.forEach(module => {
         if (
           !moduleValue ||
@@ -316,11 +321,13 @@ const SearchBar = React.createClass({
           top20.push(module)
       })
       top20 = top20.sort((a, b) => b.doc_count - a.doc_count).slice(0, 20)
-      top20.forEach(module => {
+      // top20 = top20.slice(0, 20)
+      top20.forEach((module, i) => {
+        console.log('module', module)
         // allApiDivs.push( (<div className="ac-api" key={"all-fn-" + fn.key} onClick={that.handleAPISelect(fn.key)}>{fn.key}</div>) )
         allModuleDivs.push(
           <ACAPIDiv
-            key={`ac-module-${module.key}`}
+            key={`ac-module-${module.key}${i}`}
             api={`\u002B ${module.key}`}
             handleAPISelect={that.handleModuleSelect}
           />
