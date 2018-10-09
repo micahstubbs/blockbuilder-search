@@ -103,6 +103,21 @@ const SearchBar = React.createClass({
   handleThumbnailChange() {
     const checked = this.refs.thumbnail.checked
     let query
+    let urlHashString = decodeURIComponent(window.location.hash)
+    let thumbnailString = `withThumbnail=${Number(checked)}`
+
+    console.log('window.location.hash', window.location.hash)
+    console.log('urlHashString from handleThumbnailChange', urlHashString)
+    console.log('thumbnailString', thumbnailString)
+
+    if (/withThumbnail=\d/.test(urlHashString)) {
+      urlHashString = urlHashString.replace(/withThumbnail=\d/, thumbnailString)
+      window.location.hash = encodeURIComponent(urlHashString)
+    } else {
+      // append thumbnailHash to urlHash
+      window.location.hash += encodeURIComponent(`&${thumbnailString}`)
+    }
+
     if (checked) {
       query = {
         ...this.props.query,
