@@ -18,12 +18,12 @@ module.exports = {
       {
         test: /\.js?$/,
         include: path.join(__dirname, 'src'),
-        loader: 'babel-loader',
+        loader: 'babel-loader'
       },
       {
         test: /\.scss$/,
-        use: ["style-loader", "css-loader", "sass-loader"]
-      },
+        use: ['style-loader', 'css-loader', 'sass-loader']
+      }
     ]
   },
   resolve: {
