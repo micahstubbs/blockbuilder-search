@@ -117,7 +117,7 @@ class ResultsComponent extends React.Component {
           </a>
           <a
             className="block-org-link"
-            href={`https://bl.ocks.org/${block.userId}/${d._id}`}
+            href={`https://bl.ockss.org/${block.userId}/${d._id}`}
             target="_blank"
           >
             bl.ocks.org
