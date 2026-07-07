@@ -2,7 +2,6 @@ import Mousetrap from 'mousetrap'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { IconLoader } from './icons'
-import { graphSearchIPAddress } from '../constants'
 
 import './results.scss'
 
@@ -44,20 +43,9 @@ class ResultsComponent extends React.Component {
     }
   };
 
-  onMouseOver = (i, event) => {
-    const currentBlockId = event.slice(14)
-
-    // if the shift key is pressed
-    // while mousing over a result
-    // open up the blockbuilder graph search result
-    Mousetrap.bind('shift', () => {
-      // point to blockbuilder graph search prototype
-      window.open(
-        // no https for graph search server yet
-        `http://${graphSearchIPAddress}:8080/?gist_id=${currentBlockId}`,
-        '_blank'
-      )
-    })
+  onMouseOver = () => {
+    // The shift-hover graph-search shortcut pointed at a long-gone
+    // prototype server and has been retired.
   };
 
   onMouseOut = () => {
@@ -133,13 +121,6 @@ class ResultsComponent extends React.Component {
             target="_blank"
           >
             bl.ocks.org
-          </a>
-          <a
-            className="block-graph-link"
-            href={`http://${graphSearchIPAddress}:8080/?gist_id=${d._id}`}
-            target="_blank"
-          >
-            graph search
           </a>
         </div>
       )

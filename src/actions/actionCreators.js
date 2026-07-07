@@ -13,7 +13,9 @@ export default {
   // UI controls
 }
 
-const API_URL = process.env.API_URL || '';
+// Served from bl.ockss.org/search; the search API lives under the same
+// path prefix (see blocks-server index.js).
+const API_URL = process.env.API_URL || '/search';
 
 // Query elasticsearch
 function getSearch(query) {
